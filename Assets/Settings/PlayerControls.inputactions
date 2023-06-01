@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot",
+                    "type": "PassThrough",
+                    "id": "b4aa5872-05bb-4f80-a633-5f2119170b74",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press,Hold",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -141,7 +150,7 @@
                 {
                     "name": "negative",
                     "id": "a06c7a4d-cf68-4bba-bead-4c3efc756684",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -152,7 +161,7 @@
                 {
                     "name": "positive",
                     "id": "9a63b8c6-fb7f-42ff-97f2-f7db8e89dfdf",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -273,7 +282,7 @@
                 {
                     "name": "negative",
                     "id": "d3535023-a69b-44c4-9202-fcf99fdd31f4",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -284,7 +293,7 @@
                 {
                     "name": "positive",
                     "id": "e4a21652-f665-40da-a2d7-68803ce99647",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -366,6 +375,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0825047-6236-4387-affa-f697618cb316",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5594d750-5afa-49ba-a1b7-84841bb24f7d",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -80,6 +80,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""b4aa5872-05bb-4f80-a633-5f2119170b74"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press,Hold"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -163,7 +172,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""a06c7a4d-cf68-4bba-bead-4c3efc756684"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -174,7 +183,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""9a63b8c6-fb7f-42ff-97f2-f7db8e89dfdf"",
-                    ""path"": ""<Keyboard>/d"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -295,7 +304,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""d3535023-a69b-44c4-9202-fcf99fdd31f4"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -306,7 +315,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""e4a21652-f665-40da-a2d7-68803ce99647"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -390,6 +399,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Boost"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0825047-6236-4387-affa-f697618cb316"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5594d750-5afa-49ba-a1b7-84841bb24f7d"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -404,6 +435,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_ShipControls_Roll = m_ShipControls.FindAction("Roll", throwIfNotFound: true);
         m_ShipControls_PitchYaw = m_ShipControls.FindAction("PitchYaw", throwIfNotFound: true);
         m_ShipControls_Boost = m_ShipControls.FindAction("Boost", throwIfNotFound: true);
+        m_ShipControls_Shoot = m_ShipControls.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -471,6 +503,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_ShipControls_Roll;
     private readonly InputAction m_ShipControls_PitchYaw;
     private readonly InputAction m_ShipControls_Boost;
+    private readonly InputAction m_ShipControls_Shoot;
     public struct ShipControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -481,6 +514,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Roll => m_Wrapper.m_ShipControls_Roll;
         public InputAction @PitchYaw => m_Wrapper.m_ShipControls_PitchYaw;
         public InputAction @Boost => m_Wrapper.m_ShipControls_Boost;
+        public InputAction @Shoot => m_Wrapper.m_ShipControls_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_ShipControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -508,6 +542,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Boost.started += instance.OnBoost;
             @Boost.performed += instance.OnBoost;
             @Boost.canceled += instance.OnBoost;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IShipControlsActions instance)
@@ -530,6 +567,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Boost.started -= instance.OnBoost;
             @Boost.performed -= instance.OnBoost;
             @Boost.canceled -= instance.OnBoost;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IShipControlsActions instance)
@@ -555,5 +595,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnRoll(InputAction.CallbackContext context);
         void OnPitchYaw(InputAction.CallbackContext context);
         void OnBoost(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

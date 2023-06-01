@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Weapon : MonoBehaviour {
     [SerializeField] Transform[] bulletSpawnPoints;
@@ -8,12 +9,15 @@ public class Weapon : MonoBehaviour {
     [SerializeField] float bulletVelocity = 100f;
     [SerializeField] private bool canShoot = true;
     [SerializeField] private float weaponShootCooldown = 1f;
+
+    private bool isShooting = false;
+
     private void Update() {
         Shoot();
     }
 
     private void Shoot() {
-        if (Input.GetMouseButtonDown(0) && canShoot) {
+        if (isShooting && canShoot) {
             StartCoroutine(ShootDelay());
         }
     }
@@ -32,4 +36,12 @@ public class Weapon : MonoBehaviour {
         canShoot = true;
     }
 
+
+    #region Input Methods
+
+    public void OnShoot(InputAction.CallbackContext context) {
+        isShooting = context.performed;
+    }
+
+    #endregion
 }

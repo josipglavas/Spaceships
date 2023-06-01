@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class Spaceship : MonoBehaviour {
 
+    [Header("=== Refrences ===")]
+    [SerializeField] private ParticleSystem speedLineParticles;
+
 
     [Header("=== Ship Movement Settings ===")]
     [SerializeField]
@@ -41,6 +44,9 @@ public class Spaceship : MonoBehaviour {
     private float upDownGlideReduction = 0.111f;
     [SerializeField, Range(0.001f, 0.999f)]
     private float leftRightGlideReduction = 0.111f;
+
+
+
 
     private float glide = 0.8f;
     private float horizontalGlide = 0.8f;
@@ -99,15 +105,19 @@ public class Spaceship : MonoBehaviour {
             float currentThrust;
             if (boosting) {
                 currentThrust = thrust * boostMultiplier;
+
+                speedLineParticles.Play();
+
+
             } else {
                 currentThrust = thrust;
+                speedLineParticles.Stop();
             }
             rb.AddRelativeForce(Vector3.forward * thrust1D * currentThrust * Time.deltaTime);
             glide = thrust;
         } else {
             rb.AddRelativeForce(Vector3.forward * glide * Time.deltaTime);
             glide *= thrustGlideReduction; // if we want to slowly move forward after stopping the keypress
-            //glide *= 0; // if we want to stop immidately;
         }
 
         //UP and DOWN 
@@ -120,12 +130,30 @@ public class Spaceship : MonoBehaviour {
         }
 
         //Strafing
+
+        //TODO: add 15 degrees of roll to already existing roll if we are rolling and if we are not we just return to the previous rotation we had.
+
+        float strafeRotationAngle = 15f;
         if (Mathf.Abs(strafe1D) > 0.1f) {
             rb.AddRelativeForce(Vector3.right * strafe1D * strafeThrust * Time.fixedDeltaTime);
             horizontalGlide = strafe1D * strafeThrust;
+            //Quaternion desiredRotation = Quaternion.Euler(Vector3.back * strafe1D * strafeRotationAngle * Time.deltaTime);
+            //if (transform.rotation > strafeRotationAngle) {
+            //    desiredRotation.z = strafeRotationAngle;
+            //}
+            //Debug.Log(desiredRotation);
+            //transform.rotation *= desiredRotation;
+            //if (transform.rotation.z > desiredRotation.z) {
+            //    desiredRotation = Quaternion.identity;
+            //}
+            //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(Vector3.back * strafe1D * strafeRotationAngle) * transform.rotation, Time.deltaTime); // rotate on the z
         } else {
             rb.AddRelativeForce(Vector3.right * horizontalGlide * Time.fixedDeltaTime);
             horizontalGlide *= leftRightGlideReduction;
+            //if (Mathf.Abs(roll1D) <= 0.1f) { // we are not rolling so we can rotate back to zero  && Mathf.Abs(transform.rotation.z) <= (strafe1D * strafeRotationAngle)
+            //    transform.rotation *= Quaternion.Lerp(transform.rotation, Quaternion.identity, Time.deltaTime); // rotate back to zero
+            //}
+
         }
 
     }
