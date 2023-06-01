@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 1106649242}
   - component: {fileID: 1106649241}
   - component: {fileID: 1106649240}
+  - component: {fileID: 332979116}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -400,6 +401,23 @@ MonoBehaviour:
   CameraRadius: 0.2
   DampingIntoCollision: 0
   DampingFromCollision: 2
+--- !u!114 &332979116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106649238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 2.5
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1400090270
 GameObject:
   m_ObjectHideFlags: 0
@@ -5256,6 +5274,7 @@ GameObject:
   - component: {fileID: 6741393705199223055}
   - component: {fileID: 6741393705199223057}
   - component: {fileID: 888082769}
+  - component: {fileID: 133761160}
   m_Layer: 6
   m_Name: Ship
   m_TagString: Untagged
@@ -5306,9 +5325,9 @@ MonoBehaviour:
   thrust: 2700
   upThrust: 300
   strafeThrust: 3000
-  maxBoostAmount: 20
+  maxBoostAmount: 15
   boostDeprecationRate: 0.15
-  boostRechargeRate: 0.2
+  boostRechargeRate: 0.3
   boostMultiplier: 4
   boosting: 0
   currentBoostAmount: 2
@@ -5494,8 +5513,19 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8312230809419201541, guid: 153288ad049284a958e36c522e14f1f4,
     type: 3}
   bulletVelocity: 450
-  canShoot: 1
   weaponShootCooldown: 0.5
+--- !u!114 &133761160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6741393705199223053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7615d3036b84ff5a0691083655df92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6741393705428851831
 GameObject:
   m_ObjectHideFlags: 0

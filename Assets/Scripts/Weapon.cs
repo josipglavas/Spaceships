@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Weapon : MonoBehaviour {
+
+    [Header("=== Bullet Settings ===")]
     [SerializeField] Transform[] bulletSpawnPoints;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float bulletVelocity = 100f;
-    [SerializeField] private bool canShoot = true;
     [SerializeField] private float weaponShootCooldown = 1f;
 
+    private bool canShoot = true;
+
+    // Input Values
     private bool isShooting = false;
 
     private void Update() {

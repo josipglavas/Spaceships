@@ -46,8 +46,6 @@ public class Spaceship : MonoBehaviour {
     private float leftRightGlideReduction = 0.111f;
 
 
-
-
     private float glide = 0.8f;
     private float horizontalGlide = 0.8f;
     private float verticalGlide = 0.8f;
@@ -108,10 +106,11 @@ public class Spaceship : MonoBehaviour {
 
                 speedLineParticles.Play();
 
-
+                CinemachineCameraShake.Instance.ShakeCamera(1.75f);
             } else {
                 currentThrust = thrust;
                 speedLineParticles.Stop();
+                CinemachineCameraShake.Instance.ShakeCamera(0f);
             }
             rb.AddRelativeForce(Vector3.forward * thrust1D * currentThrust * Time.deltaTime);
             glide = thrust;
@@ -133,7 +132,7 @@ public class Spaceship : MonoBehaviour {
 
         //TODO: add 15 degrees of roll to already existing roll if we are rolling and if we are not we just return to the previous rotation we had.
 
-        float strafeRotationAngle = 15f;
+        //float strafeRotationAngle = 15f;
         if (Mathf.Abs(strafe1D) > 0.1f) {
             rb.AddRelativeForce(Vector3.right * strafe1D * strafeThrust * Time.fixedDeltaTime);
             horizontalGlide = strafe1D * strafeThrust;
