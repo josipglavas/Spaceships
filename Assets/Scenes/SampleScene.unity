@@ -244,6 +244,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 888082769, guid: 462b1520bae3446598e43d18c38697de, type: 3}
+      propertyPath: bulletVelocity
+      value: 450
+      objectReference: {fileID: 0}
     - target: {fileID: 6741393705199223053, guid: 462b1520bae3446598e43d18c38697de,
         type: 3}
       propertyPath: m_Name
