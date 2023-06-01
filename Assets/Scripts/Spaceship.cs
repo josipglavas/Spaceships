@@ -106,7 +106,7 @@ public class Spaceship : MonoBehaviour {
 
                 speedLineParticles.Play();
 
-                CinemachineCameraShake.Instance.ShakeCamera(1.75f);
+                CinemachineCameraShake.Instance.ShakeCamera(2f);
             } else {
                 currentThrust = thrust;
                 speedLineParticles.Stop();
