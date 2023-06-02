@@ -123,30 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!198 &313318656 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2908278662230521965, guid: 462b1520bae3446598e43d18c38697de,
-    type: 3}
-  m_PrefabInstance: {fileID: 6741393705481828416}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1012214922 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6741393705948239050, guid: 462b1520bae3446598e43d18c38697de,
-    type: 3}
-  m_PrefabInstance: {fileID: 6741393705481828416}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1215509116 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3380270651860903931, guid: 462b1520bae3446598e43d18c38697de,
-    type: 3}
-  m_PrefabInstance: {fileID: 6741393705481828416}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1386094734 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6741393706262354126, guid: 462b1520bae3446598e43d18c38697de,
-    type: 3}
-  m_PrefabInstance: {fileID: 6741393705481828416}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2090754355
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,96 +244,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2908278662230521964, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908278662230521965, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908278662230521965, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908278662230521965, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.135
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: startSpeedFire
-      value: -2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: turboSpeedFire
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: startSpeedSmoke
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: turboSpeedSmoke
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: startRateOverTimeFire
-      value: 800
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: engineFireParticles.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: engineSmokeParticles.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: engineFireParticles.Array.data[0]
-      value: 
-      objectReference: {fileID: 1012214922}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: engineFireParticles.Array.data[1]
-      value: 
-      objectReference: {fileID: 1215509116}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: engineSmokeParticles.Array.data[0]
-      value: 
-      objectReference: {fileID: 313318656}
-    - target: {fileID: 3011343084917068999, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: engineSmokeParticles.Array.data[1]
-      value: 
-      objectReference: {fileID: 1386094734}
-    - target: {fileID: 3380270651860903931, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3380270651860903931, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3380270651860903931, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 6741393705199223053, guid: 462b1520bae3446598e43d18c38697de,
         type: 3}
       propertyPath: m_Name
@@ -417,41 +303,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6741393705948239050, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6741393705948239050, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 6741393705948239050, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6741393706262354126, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6741393706262354126, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 6741393706262354126, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.135
-      objectReference: {fileID: 0}
-    - target: {fileID: 6741393706262354127, guid: 462b1520bae3446598e43d18c38697de,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.7300005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 462b1520bae3446598e43d18c38697de, type: 3}

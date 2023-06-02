@@ -756,7 +756,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 7.5
+      scalar: 5.2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5539,15 +5539,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09d7a666480a47c1a682d77a141d6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  engineFireParticles: {fileID: 6741393705948239050}
-  engineSmokeParticles: {fileID: 6741393706262354126}
-  startSpeedFire: -5
-  startRateOverTimeFire: 1000
+  engineFireParticles:
+  - {fileID: 6741393705948239050}
+  - {fileID: 3380270651860903931}
+  engineSmokeParticles:
+  - {fileID: 2908278662230521965}
+  - {fileID: 6741393706262354126}
+  startSpeedFire: -2.5
+  startRateOverTimeFire: 800
   turboSpeedFire: -10
   turboRateOverTimeFire: 1000
-  startSpeedSmoke: 12
+  startSpeedSmoke: 10
   startRateOverTimeSmoke: 100
-  turboSpeedSmoke: 30
+  turboSpeedSmoke: 25
   turboRateOverTimeSmoke: 200
 --- !u!1 &6741393706329535180
 GameObject:
@@ -5744,6 +5748,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: EngineSmokeParticleLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 4113530029204591026, guid: f98f69ad9692540d5a462d198c420815,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113530029204591026, guid: f98f69ad9692540d5a462d198c420815,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113530029204591026, guid: f98f69ad9692540d5a462d198c420815,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.135
+      objectReference: {fileID: 0}
     - target: {fileID: 4113530029204591027, guid: f98f69ad9692540d5a462d198c420815,
         type: 3}
       propertyPath: m_RootOrder
@@ -5762,7 +5781,7 @@ PrefabInstance:
     - target: {fileID: 4113530029204591027, guid: f98f69ad9692540d5a462d198c420815,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.779
+      value: -3.73
       objectReference: {fileID: 0}
     - target: {fileID: 4113530029204591027, guid: f98f69ad9692540d5a462d198c420815,
         type: 3}
@@ -5807,6 +5826,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1245942167117851103}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &2908278662230521965 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4113530029204591026, guid: f98f69ad9692540d5a462d198c420815,
+    type: 3}
+  m_PrefabInstance: {fileID: 1245942167117851103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1438393062174345638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5818,6 +5843,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EngineFireParticleRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 5654285849807854956, guid: eeac7f811cc114c0eaa4e9bb07e4ab55,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5654285849807854958, guid: eeac7f811cc114c0eaa4e9bb07e4ab55,
         type: 3}
@@ -5963,6 +5993,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EngineFireParticleLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 5654285849807854956, guid: eeac7f811cc114c0eaa4e9bb07e4ab55,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 5654285849807854958, guid: eeac7f811cc114c0eaa4e9bb07e4ab55,
         type: 3}
       propertyPath: m_RootOrder
@@ -6026,6 +6061,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6958392627612383895}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &3380270651860903931 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5654285849807854956, guid: eeac7f811cc114c0eaa4e9bb07e4ab55,
+    type: 3}
+  m_PrefabInstance: {fileID: 6958392627612383895}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7248556930278754684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6037,6 +6078,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EngineSmokeParticleRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113530029204591026, guid: f98f69ad9692540d5a462d198c420815,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113530029204591026, guid: f98f69ad9692540d5a462d198c420815,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113530029204591026, guid: f98f69ad9692540d5a462d198c420815,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.135
       objectReference: {fileID: 0}
     - target: {fileID: 4113530029204591027, guid: f98f69ad9692540d5a462d198c420815,
         type: 3}
@@ -6056,7 +6112,7 @@ PrefabInstance:
     - target: {fileID: 4113530029204591027, guid: f98f69ad9692540d5a462d198c420815,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.779
+      value: -3.7300005
       objectReference: {fileID: 0}
     - target: {fileID: 4113530029204591027, guid: f98f69ad9692540d5a462d198c420815,
         type: 3}
