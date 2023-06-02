@@ -73,12 +73,13 @@ public class Spaceship : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        Debug.Log(thrust1D);
         HandleBoosting();
         HandleMovement();
     }
 
     private void HandleBoosting() {
-        if (boosting && currentBoostAmount > 0f) {
+        if (boosting && currentBoostAmount > 0f && thrust1D > 0.1f) {
             currentBoostAmount -= boostDeprecationRate;
             if (currentBoostAmount <= 0f) {
                 boosting = false;
@@ -101,7 +102,7 @@ public class Spaceship : MonoBehaviour {
         //Thrust
         if (Mathf.Abs(thrust1D) > 0.1f) {
             float currentThrust;
-            if (boosting) {
+            if (boosting && thrust1D > 0.1f) { //  we are not using mathf.abs on trust because we dont want to go back boosting
                 currentThrust = thrust * boostMultiplier;
 
                 speedLineParticles.Play();
@@ -185,4 +186,17 @@ public class Spaceship : MonoBehaviour {
     }
     #endregion
 
+
+    #region Getters
+
+    public bool GetIsBoosting() {
+        return boosting;
+    }
+
+    public float GetThrust1D() {
+        return thrust1D;
+
+    }
+
+    #endregion
 }
