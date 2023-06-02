@@ -38,8 +38,11 @@ public class EngineParticles : MonoBehaviour {
     private void Update() {
         if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) < 0.1f) {
             // we are neither moving or boosting so particles will go to 0;
+
             SetFire(0, 0);
             SetSmoke(0, 0);
+
+
         } else if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) > 0.1f) {
             // we are moving BUT NOT boosting
 
