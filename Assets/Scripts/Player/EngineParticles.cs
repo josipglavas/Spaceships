@@ -29,10 +29,17 @@ public class EngineParticles : NetworkBehaviour {
 
     }
 
+    public override void OnNetworkSpawn() {
+        if (!IsOwner) return;
+
+        SetFireClientRpc(0, 0);
+        SetSmokeClientRpc(0, 0);
+    }
+
     private void Start() {
         if (!IsOwner) return;
-        SetFire(0, 0);
-        SetSmoke(0, 0);
+        SetFireClientRpc(0, 0);
+        SetSmokeClientRpc(0, 0);
     }
 
     private void Update() {
@@ -41,28 +48,28 @@ public class EngineParticles : NetworkBehaviour {
         if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) < 0.1f) {
             // we are neither moving or boosting so particles will go to 0;
 
-            SetFire(0, 0);
-            SetSmoke(0, 0);
+            SetFireClientRpc(0, 0);
+            SetSmokeClientRpc(0, 0);
 
 
         } else if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) > 0.1f) {
             // we are moving BUT NOT boosting
 
-            SetFire(startSpeedFire, startRateOverTimeFire);
-            SetSmoke(startSpeedSmoke, startRateOverTimeSmoke);
+            SetFireClientRpc(startSpeedFire, startRateOverTimeFire);
+            SetSmokeClientRpc(startSpeedSmoke, startRateOverTimeSmoke);
 
         } else if (spaceship.GetIsBoosting() && spaceship.GetThrust1D() > 0.1f) { // we are boosting and going forward
             // we are moving and boosting
-            SetFire(turboSpeedFire, turboRateOverTimeFire);
-            SetSmoke(turboSpeedSmoke, turboRateOverTimeSmoke);
+            SetFireClientRpc(turboSpeedFire, turboRateOverTimeFire);
+            SetSmokeClientRpc(turboSpeedSmoke, turboRateOverTimeSmoke);
 
         } else {
-            SetFire(0, 0);
-            SetSmoke(0, 0);
+            SetFireClientRpc(0, 0);
+            SetSmokeClientRpc(0, 0);
         }
     }
-
-    private void SetFire(float speed, float rateOverTime) {
+    [ClientRpc]
+    private void SetFireClientRpc(float speed, float rateOverTime) {
         foreach (var engineFireParticle in engineFireParticles) {
             ParticleSystem.MainModule fireMain = engineFireParticle.main;
             ParticleSystem.EmissionModule fireEmission = engineFireParticle.emission;
@@ -71,8 +78,9 @@ public class EngineParticles : NetworkBehaviour {
             fireEmission.rateOverTime = rateOverTime;
         }
     }
+    [ClientRpc]
 
-    private void SetSmoke(float speed, float rateOverTime) {
+    private void SetSmokeClientRpc(float speed, float rateOverTime) {
         foreach (var engineSmokeParticle in engineSmokeParticles) {
             ParticleSystem.MainModule smokeMain = engineSmokeParticle.main;
             ParticleSystem.EmissionModule smokeEmission = engineSmokeParticle.emission;
