@@ -49,11 +49,14 @@ public class EngineParticles : MonoBehaviour {
             SetFire(startSpeedFire, startRateOverTimeFire);
             SetSmoke(startSpeedSmoke, startRateOverTimeSmoke);
 
-        } else if (spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) > 0.1f) {
+        } else if (spaceship.GetIsBoosting() && spaceship.GetThrust1D() > 0.1f) { // we are boosting and going forward
             // we are moving and boosting
             SetFire(turboSpeedFire, turboRateOverTimeFire);
             SetSmoke(turboSpeedSmoke, turboRateOverTimeSmoke);
 
+        } else {
+            SetFire(0, 0);
+            SetSmoke(0, 0);
         }
     }
 

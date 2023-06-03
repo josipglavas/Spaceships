@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
+using System.Xml;
 
-public class Weapon : MonoBehaviour {
+public class Weapon : NetworkBehaviour {
 
     [Header("=== Bullet Settings ===")]
     [SerializeField] Transform[] bulletSpawnPoints;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float bulletVelocity = 100f;
     [SerializeField] private float weaponShootCooldown = 1f;
+    [SerializeField] private int fireDamage;
 
     private bool canShoot = true;
 
@@ -17,20 +20,28 @@ public class Weapon : MonoBehaviour {
     private bool isShooting = false;
 
     private void Update() {
-        Shoot();
+
+        if (!IsOwner) return;
+        FireBulletServerRpc();
     }
 
-    private void Shoot() {
+
+    [ServerRpc]
+    private void FireBulletServerRpc() {
+
         if (isShooting && canShoot) {
             StartCoroutine(ShootDelay());
         }
-    }
 
+
+    }
     private IEnumerator ShootDelay() {
         canShoot = false;
-
+        Debug.Log("Shoot");
         foreach (Transform spawnPoint in bulletSpawnPoints) {
-            GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject bullet = NetworkObjectSpawner.SpawnNewNetworkObject(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
+            PrepareNewlySpawnedBulltet(bullet);
+
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.velocity = bullet.transform.forward * bulletVelocity;
 
@@ -38,6 +49,13 @@ public class Weapon : MonoBehaviour {
 
         yield return new WaitForSeconds(weaponShootCooldown);
         canShoot = true;
+    }
+
+
+    private void PrepareNewlySpawnedBulltet(GameObject bullet) {
+        Bullet bulletController = bullet.GetComponent<Bullet>();
+        bulletController.damage = fireDamage;
+        //bulletController.characterData = m_characterData;
     }
 
 

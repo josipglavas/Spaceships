@@ -1,20 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
+using Unity.VisualScripting;
+using System;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : NetworkBehaviour {
 
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float bulletExplosionRadius = 5f; // The maximum distance away from the explosion ships can be and are still affected.
     [SerializeField] private float bulletExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
-
     [SerializeField] private float bulletMaxLifeTime = 2f;
-    private void Awake() {
-        Destroy(gameObject, bulletMaxLifeTime); // the bullet will get destroyed after 2 seconds if it didnt collide with anything
+
+    public int damage = 1;
+
+    public override void OnNetworkSpawn() {
+        if (!IsServer) return;
+        StartCoroutine(DespawnDelay()); // the bullet will get destroyed after 2 seconds if it didnt collide with anything
 
     }
 
     private void OnTriggerEnter(Collider other) {
+        if (!IsServer) return;
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, bulletExplosionRadius, layerMask);
 
         foreach (Collider collider in colliders) {
@@ -22,11 +30,24 @@ public class Bullet : MonoBehaviour {
             if (!targetRigidbody)
                 continue;
             targetRigidbody.AddExplosionForce(bulletExplosionForce, transform.position, bulletExplosionRadius);
-            Debug.Log("we hit a player!");
-            Destroy(gameObject);
+            SpaceshipHealth spaceshipHealth = targetRigidbody.GetComponent<SpaceshipHealth>();
+            if (spaceshipHealth != null) {
+                spaceshipHealth.Hit(damage);
+
+            }
+            NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
+
         }
     }
+
+    private IEnumerator DespawnDelay() {
+        yield return new WaitForSeconds(bulletMaxLifeTime);
+        NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
+
+    }
 }
+
+
 /*
  using UnityEngine;
 

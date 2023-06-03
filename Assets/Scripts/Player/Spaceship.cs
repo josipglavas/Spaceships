@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using Unity.Netcode;
 [RequireComponent(typeof(Rigidbody))]
-public class Spaceship : MonoBehaviour {
-
+public class Spaceship : NetworkBehaviour {
     [Header("=== Refrences ===")]
     [SerializeField] private ParticleSystem speedLineParticles;
 
@@ -68,12 +67,13 @@ public class Spaceship : MonoBehaviour {
     }
 
     private void Start() {
+        if (!IsOwner) return;
         rb = GetComponent<Rigidbody>();
         currentBoostAmount = maxBoostAmount;
     }
 
     private void FixedUpdate() {
-        Debug.Log(thrust1D);
+        if (!IsOwner) return;
         HandleBoosting();
         HandleMovement();
     }
@@ -100,14 +100,22 @@ public class Spaceship : MonoBehaviour {
         rb.AddRelativeTorque(Vector3.up * Mathf.Clamp(pitchYaw.x, -1f, 1f) * yawTorque * Time.deltaTime);
 
         //Thrust
+
+        if (thrust1D == 0f) {
+            speedLineParticles.Stop();
+            CinemachineCameraShake.Instance.ShakeCamera(0f);
+        }
+
         if (Mathf.Abs(thrust1D) > 0.1f) {
             float currentThrust;
+
             if (boosting && thrust1D > 0.1f) { //  we are not using mathf.abs on trust because we dont want to go back boosting
                 currentThrust = thrust * boostMultiplier;
 
                 speedLineParticles.Play();
 
                 CinemachineCameraShake.Instance.ShakeCamera(2f);
+
             } else {
                 currentThrust = thrust;
                 speedLineParticles.Stop();
