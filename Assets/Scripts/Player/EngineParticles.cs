@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Unity.Netcode;
 [RequireComponent(typeof(Spaceship))]
-public class EngineParticles : MonoBehaviour {
+public class EngineParticles : NetworkBehaviour {
     [SerializeField] private ParticleSystem[] engineFireParticles;
 
     [SerializeField] private ParticleSystem[] engineSmokeParticles;
@@ -30,12 +30,14 @@ public class EngineParticles : MonoBehaviour {
     }
 
     private void Start() {
-
+        if (!IsOwner) return;
         SetFire(0, 0);
         SetSmoke(0, 0);
     }
 
     private void Update() {
+        if (!IsOwner) return;
+
         if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) < 0.1f) {
             // we are neither moving or boosting so particles will go to 0;
 

@@ -62,6 +62,8 @@ public class Weapon : NetworkBehaviour {
     #region Input Methods
 
     public void OnShoot(InputAction.CallbackContext context) {
+        if (!IsOwner) return;
+
         isShooting = context.performed;
     }
 
