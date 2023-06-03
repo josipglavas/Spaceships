@@ -26,7 +26,7 @@ public class EngineParticles : NetworkBehaviour {
 
     private void Awake() {
         spaceship = GetComponent<Spaceship>();
-
+        Debug.Log(spaceship.name);
     }
 
     //public override void OnNetworkSpawn() {
@@ -35,7 +35,7 @@ public class EngineParticles : NetworkBehaviour {
     //}
 
     private void Start() {
-        SetFireServerRpc(0, 0);
+        SetFireClientRpc(0, 0);
         SetSmokeClientRpc(0, 0);
     }
 
@@ -48,31 +48,27 @@ public class EngineParticles : NetworkBehaviour {
         if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) < 0.1f) {
             // we are neither moving or boosting so particles will go to 0;
 
-            SetFireServerRpc(0, 0);
+            SetFireClientRpc(0, 0);
             SetSmokeClientRpc(0, 0);
 
 
         } else if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) > 0.1f) {
             // we are moving BUT NOT boosting
 
-            SetFireServerRpc(startSpeedFire, startRateOverTimeFire);
+            SetFireClientRpc(startSpeedFire, startRateOverTimeFire);
             SetSmokeClientRpc(startSpeedSmoke, startRateOverTimeSmoke);
 
         } else if (spaceship.GetIsBoosting() && spaceship.GetThrust1D() > 0.1f) { // we are boosting and going forward
             // we are moving and boosting
-            SetFireServerRpc(turboSpeedFire, turboRateOverTimeFire);
+            SetFireClientRpc(turboSpeedFire, turboRateOverTimeFire);
             SetSmokeClientRpc(turboSpeedSmoke, turboRateOverTimeSmoke);
 
         } else {
-            SetFireServerRpc(0, 0);
+            SetFireClientRpc(0, 0);
             SetSmokeClientRpc(0, 0);
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void SetFireServerRpc(float speed, float rateOverTime) {
-        SetFireClientRpc(speed, rateOverTime);
-    }
 
     [ClientRpc]
     private void SetFireClientRpc(float speed, float rateOverTime) {
