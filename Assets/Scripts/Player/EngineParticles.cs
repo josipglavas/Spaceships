@@ -29,45 +29,51 @@ public class EngineParticles : NetworkBehaviour {
 
     }
 
-    public override void OnNetworkSpawn() {
-        if (!IsOwner) return;
-
-        SetFireClientRpc(0, 0);
-        SetSmokeClientRpc(0, 0);
-    }
+    //public override void OnNetworkSpawn() {
+    //    SetFireServerRpc(0, 0);
+    //    SetSmokeClientRpc(0, 0);
+    //}
 
     private void Start() {
-        if (!IsOwner) return;
-        SetFireClientRpc(0, 0);
+        SetFireServerRpc(0, 0);
         SetSmokeClientRpc(0, 0);
     }
 
     private void Update() {
+        HandleParticlesServerRpc();
+    }
+    [ServerRpc(RequireOwnership = false)]
+    private void HandleParticlesServerRpc() {
         if (!IsOwner) return;
-
         if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) < 0.1f) {
             // we are neither moving or boosting so particles will go to 0;
 
-            SetFireClientRpc(0, 0);
+            SetFireServerRpc(0, 0);
             SetSmokeClientRpc(0, 0);
 
 
         } else if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) > 0.1f) {
             // we are moving BUT NOT boosting
 
-            SetFireClientRpc(startSpeedFire, startRateOverTimeFire);
+            SetFireServerRpc(startSpeedFire, startRateOverTimeFire);
             SetSmokeClientRpc(startSpeedSmoke, startRateOverTimeSmoke);
 
         } else if (spaceship.GetIsBoosting() && spaceship.GetThrust1D() > 0.1f) { // we are boosting and going forward
             // we are moving and boosting
-            SetFireClientRpc(turboSpeedFire, turboRateOverTimeFire);
+            SetFireServerRpc(turboSpeedFire, turboRateOverTimeFire);
             SetSmokeClientRpc(turboSpeedSmoke, turboRateOverTimeSmoke);
 
         } else {
-            SetFireClientRpc(0, 0);
+            SetFireServerRpc(0, 0);
             SetSmokeClientRpc(0, 0);
         }
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SetFireServerRpc(float speed, float rateOverTime) {
+        SetFireClientRpc(speed, rateOverTime);
+    }
+
     [ClientRpc]
     private void SetFireClientRpc(float speed, float rateOverTime) {
         foreach (var engineFireParticle in engineFireParticles) {
