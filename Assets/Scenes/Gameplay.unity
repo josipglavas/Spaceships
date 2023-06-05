@@ -186,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_charactersData:
   - {fileID: 11400000, guid: 5bfb40d0922d446e195b625b84486ecc, type: 2}
+  - {fileID: 11400000, guid: 8f1e7766134b944f2a410d1ea786b7e9, type: 2}
   m_deathUI: {fileID: 0}
   m_shipStartingPositions:
   - {fileID: 1507750922}
@@ -406,6 +407,7 @@ MonoBehaviour:
   m_maxConnections: 4
   m_characterDatas:
   - {fileID: 11400000, guid: 5bfb40d0922d446e195b625b84486ecc, type: 2}
+  - {fileID: 11400000, guid: 8f1e7766134b944f2a410d1ea786b7e9, type: 2}
 --- !u!4 &2043691232
 Transform:
   m_ObjectHideFlags: 0
