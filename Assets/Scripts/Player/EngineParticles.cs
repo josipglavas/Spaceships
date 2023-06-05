@@ -25,14 +25,18 @@ public class EngineParticles : NetworkBehaviour {
     private Spaceship spaceship;
 
     private void Awake() {
+        if (!IsOwner) return;
         spaceship = GetComponent<Spaceship>();
         Debug.Log(spaceship.name);
     }
 
-    //public override void OnNetworkSpawn() {
-    //    SetFireServerRpc(0, 0);
-    //    SetSmokeClientRpc(0, 0);
-    //}
+    public override void OnNetworkSpawn() {
+        if (!IsOwner) return;
+        spaceship = GetComponent<Spaceship>();
+
+        SetFireClientRpc(0, 0);
+        SetSmokeClientRpc(0, 0);
+    }
 
     private void Start() {
         SetFireClientRpc(0, 0);

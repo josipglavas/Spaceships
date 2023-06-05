@@ -41,6 +41,7 @@ public class LoadingSceneManager : SingletonPersistent<LoadingSceneManager> {
         // Here the player still sees the black screen
         yield return new WaitUntil(() => LoadingFadeEffect.s_canLoad);
 
+
         if (isNetworkSessionActive) {
             if (NetworkManager.Singleton.IsServer)
                 LoadSceneNetwork(sceneToLoad);
@@ -92,19 +93,19 @@ public class LoadingSceneManager : SingletonPersistent<LoadingSceneManager> {
         switch (m_sceneActive) {
             // When a client/host connects tell the manager
             case SceneName.CharacterSelection:
-                //  CharacterSelectionManager.Instance.ServerSceneInit(clientId);
+                CharacterSelectionManager.Instance.ServerSceneInit(clientId);
                 break;
 
             // When a client/host connects tell the manager to create the ship and change the music
             case SceneName.Gameplay:
-                //   GameplayManager.Instance.ServerSceneInit(clientId);
+                GameManager.Instance.ServerSceneInit(clientId);
                 break;
 
             // When a client/host connects tell the manager to create the player score ships and
             // play the right SFX
             case SceneName.Victory:
             case SceneName.Defeat:
-                //   EndGameManager.Instance.ServerSceneInit(clientId);
+                // EndGameManager.Instance.ServerSceneInit(clientId);
                 break;
         }
     }

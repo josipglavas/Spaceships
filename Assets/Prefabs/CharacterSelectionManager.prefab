@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1621157552539829612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5534999918231552756}
+  - component: {fileID: 6543669970423537736}
+  - component: {fileID: 5179968129178512749}
+  m_Layer: 0
+  m_Name: CharacterSelectionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5534999918231552756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621157552539829612}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6543669970423537736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621157552539829612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4a9a406272147ac9b1c2ce9207a3fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charactersData:
+  - {fileID: 11400000, guid: 5bfb40d0922d446e195b625b84486ecc, type: 2}
+  - {fileID: 11400000, guid: 5bfb40d0922d446e195b625b84486ecc, type: 2}
+  - {fileID: 11400000, guid: 5bfb40d0922d446e195b625b84486ecc, type: 2}
+  - {fileID: 11400000, guid: 5bfb40d0922d446e195b625b84486ecc, type: 2}
+  m_charactersContainers:
+  - imageContainer: {fileID: 0}
+    nameContainer: {fileID: 0}
+    border: {fileID: 0}
+    borderReady: {fileID: 0}
+    borderClient: {fileID: 0}
+    playerIcon: {fileID: 0}
+    waitingText: {fileID: 0}
+    backgroundShip: {fileID: 0}
+    backgroundShipImage: {fileID: 0}
+    backgroundShipReady: {fileID: 0}
+    backgroundShipReadyImage: {fileID: 0}
+    backgroundClientShipReady: {fileID: 0}
+    backgroundClientShipReadyImage: {fileID: 0}
+  - imageContainer: {fileID: 0}
+    nameContainer: {fileID: 0}
+    border: {fileID: 0}
+    borderReady: {fileID: 0}
+    borderClient: {fileID: 0}
+    playerIcon: {fileID: 0}
+    waitingText: {fileID: 0}
+    backgroundShip: {fileID: 0}
+    backgroundShipImage: {fileID: 0}
+    backgroundShipReady: {fileID: 0}
+    backgroundShipReadyImage: {fileID: 0}
+    backgroundClientShipReady: {fileID: 0}
+    backgroundClientShipReadyImage: {fileID: 0}
+  - imageContainer: {fileID: 0}
+    nameContainer: {fileID: 0}
+    border: {fileID: 0}
+    borderReady: {fileID: 0}
+    borderClient: {fileID: 0}
+    playerIcon: {fileID: 0}
+    waitingText: {fileID: 0}
+    backgroundShip: {fileID: 0}
+    backgroundShipImage: {fileID: 0}
+    backgroundShipReady: {fileID: 0}
+    backgroundShipReadyImage: {fileID: 0}
+    backgroundClientShipReady: {fileID: 0}
+    backgroundClientShipReadyImage: {fileID: 0}
+  - imageContainer: {fileID: 0}
+    nameContainer: {fileID: 0}
+    border: {fileID: 0}
+    borderReady: {fileID: 0}
+    borderClient: {fileID: 0}
+    playerIcon: {fileID: 0}
+    waitingText: {fileID: 0}
+    backgroundShip: {fileID: 0}
+    backgroundShipImage: {fileID: 0}
+    backgroundShipReady: {fileID: 0}
+    backgroundShipReadyImage: {fileID: 0}
+    backgroundClientShipReady: {fileID: 0}
+    backgroundClientShipReadyImage: {fileID: 0}
+  m_readyButton: {fileID: 0}
+  m_cancelButton: {fileID: 0}
+  m_timeToStartGame: 1
+  m_nextScene: 3
+  m_clientColor: {r: 0, g: 1, b: 0.036717415, a: 0}
+  m_playerColor: {r: 1, g: 0, b: 0.17726517, a: 0}
+  m_playerStates:
+  - playerState: 1
+    playerObject: {fileID: 0}
+    playerName: 
+    clientId: 0
+  - playerState: 1
+    playerObject: {fileID: 0}
+    playerName: 
+    clientId: 0
+  - playerState: 1
+    playerObject: {fileID: 0}
+    playerName: 
+    clientId: 0
+  - playerState: 1
+    playerObject: {fileID: 0}
+    playerName: 
+    clientId: 0
+  m_playerPrefab: {fileID: 4085575621871619219, guid: c4cfd8209a68c46549f618086ed58b1e,
+    type: 3}
+  m_confirmClip: {fileID: 0}
+  m_cancelClip: {fileID: 0}
+--- !u!114 &5179968129178512749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621157552539829612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

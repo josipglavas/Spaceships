@@ -30,7 +30,7 @@ public class Bullet : NetworkBehaviour {
             if (!targetRigidbody)
                 continue;
             targetRigidbody.AddExplosionForce(bulletExplosionForce, transform.position, bulletExplosionRadius);
-            SpaceshipHealth spaceshipHealth = targetRigidbody.GetComponent<SpaceshipHealth>();
+            SpaceShipController spaceshipHealth = targetRigidbody.GetComponent<SpaceShipController>();
             if (spaceshipHealth != null) {
                 spaceshipHealth.Hit(damage);
 

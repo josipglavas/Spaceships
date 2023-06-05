@@ -13,12 +13,12 @@ public class LoadingFadeEffect : SingletonPersistent<LoadingFadeEffect> {
     Image m_loadingBackground;          // The background image to change alpha for effect
 
     [SerializeField]
-    [Range(0f, 0.5f)]
-    float m_loadingStepTime;            // A range of time to wait for every repetition on the effect
+    [Range(0.01f, 0.5f)]
+    float m_loadingStepTime = 0.01f;            // A range of time to wait for every repetition on the effect
 
     [SerializeField]
-    [Range(0f, 0.5f)]
-    float m_loadingStepValue;           // The value to modify the alpha every steo time
+    [Range(0.05f, 0.5f)]
+    float m_loadingStepValue = 0.05f;           // The value to modify the alpha every steo time
 
     // Run the complete effect, use for the clients
     IEnumerator FadeAllEffect() {
@@ -47,14 +47,15 @@ public class LoadingFadeEffect : SingletonPersistent<LoadingFadeEffect> {
 
         // Repeat until the alpha is <= to 1
         while (backgroundColor.a <= 1) {
-            // Wait 
+            // Wait
+
             yield return new WaitForSeconds(m_loadingStepTime);
 
             // Change the background color bt the step value
             backgroundColor.a += m_loadingStepValue;
-
             // Set the background image to the modify var
             m_loadingBackground.color = backgroundColor;
+
         }
 
         // When the fade-in ends you can start loading the scene

@@ -44,6 +44,8 @@ public class Spaceship : NetworkBehaviour {
     [SerializeField, Range(0.001f, 0.999f)]
     private float leftRightGlideReduction = 0.111f;
 
+    [HideInInspector]
+    public GameManager gameplayManager;
 
     private float glide = 0.8f;
     private float horizontalGlide = 0.8f;

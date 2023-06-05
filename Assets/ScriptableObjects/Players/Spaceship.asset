@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44432d8870e584203883ea743ed1f9bf, type: 3}
+  m_Name: Spaceship
+  m_EditorClassIdentifier: 
+  characterSprite: {fileID: 21300000, guid: 9f0a2b5cbb0604f5994fef498212d1a4, type: 3}
+  characterShipSprite: {fileID: 21300000, guid: 9f0a2b5cbb0604f5994fef498212d1a4,
+    type: 3}
+  iconSprite: {fileID: 21300000, guid: 9f0a2b5cbb0604f5994fef498212d1a4, type: 3}
+  iconDeathSprite: {fileID: 21300000, guid: 9f0a2b5cbb0604f5994fef498212d1a4, type: 3}
+  characterName: Ship
+  spaceshipPrefab: {fileID: 6741393705199223053, guid: 462b1520bae3446598e43d18c38697de,
+    type: 3}
+  spaceshipScorePrefab: {fileID: 6741393705199223053, guid: 462b1520bae3446598e43d18c38697de,
+    type: 3}
+  color: {r: 1, g: 1, b: 1, a: 0}
+  darkColor: {r: 1, g: 1, b: 1, a: 0}
+  clientId: 0
+  playerId: -1
+  isSelected: 0
+  enemiesDestroyed: 0
+  powerUpsUsed: 0
