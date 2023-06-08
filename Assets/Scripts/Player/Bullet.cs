@@ -8,11 +8,13 @@ using System;
 public class Bullet : NetworkBehaviour {
 
     [SerializeField] private LayerMask layerMask;
-    [SerializeField] private float bulletExplosionRadius = 5f; // The maximum distance away from the explosion ships can be and are still affected.
+    [SerializeField] private float bulletExplosionRadius = 1f; // The maximum distance away from the explosion ships can be and are still affected.
     [SerializeField] private float bulletExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
-    [SerializeField] private float bulletMaxLifeTime = 2f;
+    [SerializeField] private float bulletMaxLifeTime = 3f;
 
-    public int damage = 1;
+    public CharacterDataSO characterData;
+
+    private int damage;
 
     public override void OnNetworkSpawn() {
         if (!IsServer) return;
@@ -23,27 +25,39 @@ public class Bullet : NetworkBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (!IsServer) return;
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, bulletExplosionRadius, layerMask);
-
-        foreach (Collider collider in colliders) {
-            Rigidbody targetRigidbody = collider.GetComponent<Rigidbody>();
-            if (!targetRigidbody)
-                continue;
-            targetRigidbody.AddExplosionForce(bulletExplosionForce, transform.position, bulletExplosionRadius);
-            SpaceShipController spaceshipHealth = targetRigidbody.GetComponent<SpaceShipController>();
-            if (spaceshipHealth != null) {
-                spaceshipHealth.Hit(damage);
-
-            }
+        if (other.TryGetComponent(out SpaceShipController spaceShipController)) {
+            spaceShipController.Hit(damage);
             NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
-
         }
+
+        //Collider[] colliders = Physics.OverlapSphere(transform.position, bulletExplosionRadius, layerMask);
+
+        //foreach (Collider collider in colliders) {
+        //    Rigidbody targetRigidbody = collider.GetComponent<Rigidbody>();
+        //    if (!targetRigidbody)
+        //        continue;
+        //    targetRigidbody.AddExplosionForce(bulletExplosionForce, transform.position, bulletExplosionRadius);
+
+        //    Debug.Log("We hit a player");
+
+        //    SpaceShipController spaceshipHealth = targetRigidbody.GetComponent<SpaceShipController>();
+        //    if (spaceshipHealth != null) {
+        //        spaceshipHealth.Hit(damage);
+        //    }
+
+        //    NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
+
+        //}
     }
 
     private IEnumerator DespawnDelay() {
         yield return new WaitForSeconds(bulletMaxLifeTime);
         NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
 
+    }
+
+    public void SetDamage(int damage) {
+        this.damage = damage;
     }
 }
 

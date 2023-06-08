@@ -51,7 +51,6 @@ public class Spaceship : NetworkBehaviour {
     private float horizontalGlide = 0.8f;
     private float verticalGlide = 0.8f;
 
-
     private Rigidbody rb;
 
     // Input Values
@@ -69,7 +68,6 @@ public class Spaceship : NetworkBehaviour {
     }
 
     private void Start() {
-        if (!IsOwner) return;
         rb = GetComponent<Rigidbody>();
         currentBoostAmount = maxBoostAmount;
     }
@@ -172,37 +170,31 @@ public class Spaceship : NetworkBehaviour {
     #region Input Methods
 
     public void OnThrust(InputAction.CallbackContext context) {
-        if (!IsOwner) return;
 
         thrust1D = context.ReadValue<float>();
     }
 
     public void OnStrafe(InputAction.CallbackContext context) {
-        if (!IsOwner) return;
 
         strafe1D = context.ReadValue<float>();
     }
 
     public void OnUpDown(InputAction.CallbackContext context) {
-        if (!IsOwner) return;
 
         upDown1D = context.ReadValue<float>();
     }
 
     public void OnRoll(InputAction.CallbackContext context) {
-        if (!IsOwner) return;
 
         roll1D = context.ReadValue<float>();
     }
 
     public void OnPitchYaw(InputAction.CallbackContext context) {
-        if (!IsOwner) return;
 
         pitchYaw = context.ReadValue<Vector2>();
     }
 
     public void OnBoost(InputAction.CallbackContext context) {
-        if (!IsOwner) return;
 
         boosting = context.performed;
     }

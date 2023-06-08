@@ -18,9 +18,10 @@ public class SpaceShipController : NetworkBehaviour {
     public GameManager gameplayManager;
 
     public void Hit(int damage) {
-        if (!IsServer || isPlayerDefeated)
+        //if (!IsServer || isPlayerDefeated)
+        if (isPlayerDefeated)
             return;
-
+        Debug.Log("Taken damage amount: " + damage);
         health.Value -= damage;
 
         //HitClientRpc();
@@ -33,8 +34,8 @@ public class SpaceShipController : NetworkBehaviour {
 
             // Tell the Gameplay manager that I've been defeated
             //gameplayManager.PlayerDeath(m_characterData.clientId);
-
-            //NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
+            Debug.Log("Player killed");
+            NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
         }
     }
 

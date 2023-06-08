@@ -312,6 +312,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 731603071057720775, guid: 2daa4014ebd324382a5cfde3e2d1fc39,
+        type: 3}
+      propertyPath: ConnectionData.Address
+      value: 127.0.0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 731603071057720775, guid: 2daa4014ebd324382a5cfde3e2d1fc39,
+        type: 3}
+      propertyPath: ConnectionData.ServerListenAddress
+      value: 127.0.0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3113693059539568679, guid: 2daa4014ebd324382a5cfde3e2d1fc39,
         type: 3}
       propertyPath: m_RootOrder

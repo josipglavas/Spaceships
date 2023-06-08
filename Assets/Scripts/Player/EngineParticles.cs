@@ -24,55 +24,60 @@ public class EngineParticles : NetworkBehaviour {
 
     private Spaceship spaceship;
 
-    private void Awake() {
-        if (!IsOwner) return;
-        spaceship = GetComponent<Spaceship>();
-        Debug.Log(spaceship.name);
-    }
+    //private void Awake() {
+    //    if (!IsOwner) return;
+    //    spaceship = GetComponent<Spaceship>();
+    //    Debug.Log(spaceship.name);
+    //}
 
     public override void OnNetworkSpawn() {
-        if (!IsOwner) return;
         spaceship = GetComponent<Spaceship>();
 
-        SetFireClientRpc(0, 0);
-        SetSmokeClientRpc(0, 0);
+        SetFireServerRpc(0, 0);
+        SetSmokeServerRpc(0, 0);
     }
 
-    private void Start() {
-        SetFireClientRpc(0, 0);
-        SetSmokeClientRpc(0, 0);
-    }
+    //private void Start() {
+    //    SetFireClientRpc(0, 0);
+    //    SetSmokeClientRpc(0, 0);
+    //}
 
     private void Update() {
-        HandleParticlesServerRpc();
+        HandleParticles();
     }
-    [ServerRpc(RequireOwnership = false)]
-    private void HandleParticlesServerRpc() {
+
+    private void HandleParticles() {
         if (!IsOwner) return;
         if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) < 0.1f) {
             // we are neither moving or boosting so particles will go to 0;
 
-            SetFireClientRpc(0, 0);
-            SetSmokeClientRpc(0, 0);
-
+            SetFireServerRpc(0, 0);
+            SetSmokeServerRpc(0, 0);
 
         } else if (!spaceship.GetIsBoosting() && Mathf.Abs(spaceship.GetThrust1D()) > 0.1f) {
             // we are moving BUT NOT boosting
 
-            SetFireClientRpc(startSpeedFire, startRateOverTimeFire);
-            SetSmokeClientRpc(startSpeedSmoke, startRateOverTimeSmoke);
+            SetFireServerRpc(startSpeedFire, startRateOverTimeFire);
+            SetSmokeServerRpc(startSpeedSmoke, startRateOverTimeSmoke);
 
         } else if (spaceship.GetIsBoosting() && spaceship.GetThrust1D() > 0.1f) { // we are boosting and going forward
-            // we are moving and boosting
-            SetFireClientRpc(turboSpeedFire, turboRateOverTimeFire);
-            SetSmokeClientRpc(turboSpeedSmoke, turboRateOverTimeSmoke);
+                                                                                  // we are moving and boosting
+            SetFireServerRpc(turboSpeedFire, turboRateOverTimeFire);
+            SetSmokeServerRpc(turboSpeedSmoke, turboRateOverTimeSmoke);
 
+        } else if (spaceship.GetIsBoosting() && spaceship.GetThrust1D() < 0.1f) {
+            // we are boosting and going backwards, the boosting here isnt working and we are not increasing speed but we need to sync the particles
+            SetFireServerRpc(startSpeedFire, startRateOverTimeFire);
+            SetSmokeServerRpc(startSpeedSmoke, startRateOverTimeSmoke);
         } else {
-            SetFireClientRpc(0, 0);
-            SetSmokeClientRpc(0, 0);
+            SetFireServerRpc(0, 0);
+            SetSmokeServerRpc(0, 0);
         }
     }
-
+    [ServerRpc(RequireOwnership = false)]
+    private void SetFireServerRpc(float speed, float rateOverTime) {
+        SetFireClientRpc(speed, rateOverTime);
+    }
 
     [ClientRpc]
     private void SetFireClientRpc(float speed, float rateOverTime) {
@@ -84,8 +89,13 @@ public class EngineParticles : NetworkBehaviour {
             fireEmission.rateOverTime = rateOverTime;
         }
     }
-    [ClientRpc]
 
+    [ServerRpc(RequireOwnership = false)]
+    private void SetSmokeServerRpc(float speed, float rateOverTime) {
+        SetSmokeClientRpc(speed, rateOverTime);
+    }
+
+    [ClientRpc]
     private void SetSmokeClientRpc(float speed, float rateOverTime) {
         foreach (var engineSmokeParticle in engineSmokeParticles) {
             ParticleSystem.MainModule smokeMain = engineSmokeParticle.main;
@@ -95,4 +105,6 @@ public class EngineParticles : NetworkBehaviour {
             smokeEmission.rateOverTime = rateOverTime;
         }
     }
+
+
 }
