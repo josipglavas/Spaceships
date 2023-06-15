@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-
+using System;
 public class SpaceShipController : NetworkBehaviour {
 
-    [SerializeField] CharacterDataSO m_characterData;
+    public event EventHandler<int> OnHealthChanged;
 
     [HideInInspector]
     public CharacterDataSO characterData;
@@ -17,13 +17,14 @@ public class SpaceShipController : NetworkBehaviour {
     [HideInInspector]
     public GameManager gameplayManager;
 
+
     public void Hit(int damage) {
         //if (!IsServer || isPlayerDefeated)
         if (isPlayerDefeated)
             return;
         Debug.Log("Taken damage amount: " + damage);
         health.Value -= damage;
-
+        OnHealthChanged?.Invoke(this, health.Value);
         //HitClientRpc();
 
         if (health.Value > 0) {
@@ -39,6 +40,11 @@ public class SpaceShipController : NetworkBehaviour {
         }
     }
 
+    public void SetHealth(int health) {
+        this.health.Value = health;
+    }
 
-
+    public int GetHealth() {
+        return health.Value;
+    }
 }

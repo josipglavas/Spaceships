@@ -10,8 +10,8 @@ public class GameManager : SingletonNetwork<GameManager> {
     [SerializeField]
     private CharacterDataSO[] m_charactersData;
 
-    //[SerializeField]
-    //private PlayerUI[] m_playersUI;
+    [SerializeField]
+    private UIPlayerGameplay playerUI;
 
     [SerializeField]
     private GameObject m_deathUI;
@@ -82,25 +82,41 @@ public class GameManager : SingletonNetwork<GameManager> {
         LoadingFadeEffect.Instance.FadeAll();
     }
 
-    //[ClientRpc]
-    //private void SetPlayerUIClientRpc(int charIndex, string playerShipName) {
-    //    // Not optimal, but this is only called one time per ship
-    //    // We do this because we can not pass a GameObject in an RPC
-    //    GameObject playerSpaceship = GameObject.Find(playerShipName);
+    [ClientRpc]
+    private void SetPlayerUIClientRpc(NetworkBehaviourReference playerReference, ulong clientId, float boost, int health) {
+        // Not optimal, but this is only called one time per ship
+        // We do this because we can not pass a GameObject in an RPC
+        //GameObject playerSpaceship = GameObject.Find(playerShipName);
 
-    //    PlayerShipController playerShipController =
-    //        playerSpaceship.GetComponent<PlayerShipController>();
+        //SpaceShipController playerShipController =
+        //    playerSpaceship.GetComponent<SpaceShipController>();
 
-    //    m_playersUI[m_charactersData[charIndex].playerId].SetUI(
-    //        m_charactersData[charIndex].playerId,
-    //        m_charactersData[charIndex].iconSprite,
-    //        m_charactersData[charIndex].iconDeathSprite,
-    //        playerShipController.health.Value,
-    //        m_charactersData[charIndex].darkColor);
+        //playerUI[m_charactersData[charIndex].playerId].SetUI(
+        //    m_charactersData[charIndex].playerId,
+        //    m_charactersData[charIndex].iconSprite,
+        //    m_charactersData[charIndex].iconDeathSprite,
+        //    playerShipController.health.Value,
+        //    m_charactersData[charIndex].darkColor);
 
-    //    // Pass the UI to the player
-    //    playerShipController.playerUI = m_playersUI[m_charactersData[charIndex].playerId];
-    //}
+        //// Pass the UI to the player
+        //playerShipController.playerUI = playerUI[m_charactersData[charIndex].playerId];
+
+        if (playerReference.TryGet(out NetworkBehaviour player)) {
+            SpaceShipController playerShipController =
+                       player.GetComponent<SpaceShipController>();
+            //playerShipController.gameplayManager = this;
+            //      playerShipController.SetHealth(health);
+
+            Spaceship playerShip =
+                player.GetComponent<Spaceship>();
+            playerShip.SetBoost(boost);
+
+
+            playerUI.SetPlayerUI(player.gameObject);
+        } else {
+            return;
+        }
+    }
 
     private IEnumerator HostShutdown() {
         // Tell the clients to shutdown
@@ -155,8 +171,6 @@ public class GameManager : SingletonNetwork<GameManager> {
 
         // For each client spawn and set UI
         foreach (var client in m_connectedClients) {
-            int index = 0;
-
             foreach (CharacterDataSO data in m_charactersData) {
                 if (data.isSelected && data.clientId == client) {
                     GameObject playerSpaceship =
@@ -170,14 +184,19 @@ public class GameManager : SingletonNetwork<GameManager> {
                         playerSpaceship.GetComponent<SpaceShipController>();
                     playerShipController.characterData = data;
                     playerShipController.gameplayManager = this;
+                    playerShipController.SetHealth(data.healthAmount);
+
+                    Spaceship playerShip =
+                        playerSpaceship.GetComponent<Spaceship>();
+                    playerShip.SetBoost(data.boostAmount);
 
                     m_playerShips.Add(playerShipController);
-                    //SetPlayerUIClientRpc(index, playerSpaceship.name);
+                    SetPlayerUIClientRpc(playerSpaceship.GetComponent<NetworkBehaviour>(), clientId, data.boostAmount, data.healthAmount);
+                    playerUI.SetPlayerUI(playerSpaceship);
 
+                    //
                     m_numberOfPlayerConnected++;
                 }
-
-                index++;
             }
         }
     }

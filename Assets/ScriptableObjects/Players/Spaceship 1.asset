@@ -24,8 +24,10 @@ MonoBehaviour:
     type: 3}
   color: {r: 1, g: 1, b: 1, a: 0}
   darkColor: {r: 1, g: 1, b: 1, a: 0}
-  clientId: 0
-  playerId: -1
-  isSelected: 0
+  clientId: 1
+  playerId: 1
+  isSelected: 1
   enemiesDestroyed: 0
   powerUpsUsed: 0
+  boostAmount: 30
+  healthAmount: 80

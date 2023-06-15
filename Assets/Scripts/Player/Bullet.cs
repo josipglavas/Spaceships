@@ -8,13 +8,13 @@ using System;
 public class Bullet : NetworkBehaviour {
 
     [SerializeField] private LayerMask layerMask;
-    [SerializeField] private float bulletExplosionRadius = 1f; // The maximum distance away from the explosion ships can be and are still affected.
-    [SerializeField] private float bulletExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
+    //[SerializeField] private float bulletExplosionRadius = 1f; // The maximum distance away from the explosion ships can be and are still affected.
+    //[SerializeField] private float bulletExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
     [SerializeField] private float bulletMaxLifeTime = 3f;
 
     public CharacterDataSO characterData;
 
-    private int damage;
+    private int damage = 0;
 
     public override void OnNetworkSpawn() {
         if (!IsServer) return;

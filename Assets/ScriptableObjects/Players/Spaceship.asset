@@ -29,3 +29,5 @@ MonoBehaviour:
   isSelected: 0
   enemiesDestroyed: 0
   powerUpsUsed: 0
+  boostAmount: 20
+  healthAmount: 100

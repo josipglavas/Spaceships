@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
+using System;
 [RequireComponent(typeof(Rigidbody))]
 public class Spaceship : NetworkBehaviour {
+
+    public event EventHandler<float> OnBoostChanged;
+
     [Header("=== Refrences ===")]
     [SerializeField] private ParticleSystem speedLineParticles;
 
@@ -26,7 +30,7 @@ public class Spaceship : NetworkBehaviour {
 
     [Header("=== Ship Boost Settings ===")]
     [SerializeField]
-    private float maxBoostAmount = 20f;
+    private float maxBoostAmount;
     [SerializeField]
     private float boostDeprecationRate = 0.25f;
     [SerializeField]
@@ -69,7 +73,7 @@ public class Spaceship : NetworkBehaviour {
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
-        currentBoostAmount = maxBoostAmount;
+        //currentBoostAmount = maxBoostAmount;
     }
 
     private void FixedUpdate() {
@@ -81,12 +85,14 @@ public class Spaceship : NetworkBehaviour {
     private void HandleBoosting() {
         if (boosting && currentBoostAmount > 0f && thrust1D > 0.1f) {
             currentBoostAmount -= boostDeprecationRate;
+            OnBoostChanged?.Invoke(this, currentBoostAmount);
             if (currentBoostAmount <= 0f) {
                 boosting = false;
             }
         } else {
             if (currentBoostAmount < maxBoostAmount) {
                 currentBoostAmount += boostRechargeRate;
+                OnBoostChanged?.Invoke(this, currentBoostAmount);
             }
         }
     }
@@ -201,7 +207,7 @@ public class Spaceship : NetworkBehaviour {
     #endregion
 
 
-    #region Getters
+    #region Getters and Setters
 
     public bool GetIsBoosting() {
         return boosting;
@@ -210,6 +216,14 @@ public class Spaceship : NetworkBehaviour {
     public float GetThrust1D() {
         return thrust1D;
 
+    }
+
+    public float GetBoost() {
+        return maxBoostAmount;
+    }
+
+    public void SetBoost(float boost) {
+        this.maxBoostAmount = boost;
     }
 
     #endregion

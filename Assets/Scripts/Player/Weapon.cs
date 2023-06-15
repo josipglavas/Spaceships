@@ -14,49 +14,52 @@ public class Weapon : NetworkBehaviour {
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float bulletVelocity = 100f;
     [SerializeField] private float weaponShootCooldown = 1f;
-    [SerializeField] private int fireDamage = 60;
+    [SerializeField] private int fireDamage = 10;
 
     private bool canShoot = true;
 
+    private Vector3 screenCenter;
+    public Camera mainCam;
+    private Ray ray;
     // Input Values
     private bool isShooting = false;
 
-    private void Update() {
-        if (!IsOwner) return;
+    private void Start() {
+        screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f);
+        mainCam = gameObject.GetComponentInChildren<Camera>();
+    }
 
+    private void Update() {
+        ray = mainCam.ScreenPointToRay(screenCenter);
+
+        if (!IsOwner) return;
         if (isShooting && canShoot) {
-            StartCoroutine(ShootDelay());
+            StartCoroutine(ShootDelay(ray.direction));
         }
     }
 
 
     [ServerRpc]
-    private void FireBulletServerRpc() {
-        Shoot();
+    private void FireBulletServerRpc(Vector3 rayDirection) {
+        Shoot(rayDirection);
     }
 
-    private IEnumerator ShootDelay() {
+    private IEnumerator ShootDelay(Vector3 rayDirection) {
         canShoot = false;
-
-        FireBulletServerRpc();
+        FireBulletServerRpc(rayDirection);
 
         yield return new WaitForSeconds(weaponShootCooldown);
         canShoot = true;
     }
 
-    private void Shoot() {
-        Vector3 screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f);
-
-        Ray ray = Camera.main.ScreenPointToRay(screenCenter);
-
+    private void Shoot(Vector3 rayDirection) {
         foreach (Transform spawnPoint in bulletSpawnPoints) {
             Vector3 aimDir = (screenCenter - spawnPoint.forward).normalized;
 
             GameObject bullet = NetworkObjectSpawner.SpawnNewNetworkObject(bulletPrefab, spawnPoint.position, Quaternion.LookRotation(aimDir, Vector3.up));
             PrepareNewlySpawnedBulltet(bullet);
-
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            rb.velocity = ray.direction * bulletVelocity;
+            rb.velocity = rayDirection * bulletVelocity;
         }
     }
 

@@ -5369,7 +5369,7 @@ MonoBehaviour:
   thrust: 2700
   upThrust: 300
   strafeThrust: 3000
-  maxBoostAmount: 20
+  maxBoostAmount: 0
   boostDeprecationRate: 0.15
   boostRechargeRate: 0.3
   boostMultiplier: 4
@@ -5566,9 +5566,10 @@ MonoBehaviour:
   - {fileID: 86228837}
   bulletPrefab: {fileID: 8312230809419201541, guid: 153288ad049284a958e36c522e14f1f4,
     type: 3}
-  bulletVelocity: 800
+  bulletVelocity: 1200
   weaponShootCooldown: 0.5
-  fireDamage: 60
+  fireDamage: 10
+  mainCam: {fileID: 0}
 --- !u!114 &133761160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5619,7 +5620,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea445b46bca144738bd6081c226b159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_characterData: {fileID: 0}
   characterData: {fileID: 0}
   health:
     m_InternalValue: 100
@@ -5718,8 +5718,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.75, y: 3.3588648, z: 7.65}
-  m_Center: {x: 0, y: -0.2351895, z: -0.1500001}
+  m_Size: {x: 9, y: 3.3588648, z: 7.65}
+  m_Center: {x: 0, y: 0, z: -0.2}
 --- !u!114 &2320317342483452816
 MonoBehaviour:
   m_ObjectHideFlags: 0

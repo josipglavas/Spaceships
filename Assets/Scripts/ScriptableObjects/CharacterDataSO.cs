@@ -21,6 +21,8 @@ public class CharacterDataSO : ScriptableObject {
     [Header("Score")]
     public int enemiesDestroyed;            // The enemies defeat by the player for the final score
     public int powerUpsUsed;                // The power ups used by the player for the final score
+    public float boostAmount;
+    public int healthAmount;
 
     void OnEnable() {
         EmptyData();

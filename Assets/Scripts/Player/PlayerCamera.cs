@@ -12,6 +12,7 @@ public class PlayerCamera : NetworkBehaviour {
         if (IsOwner) {
             listener.enabled = true;
             virtualCamera.Priority = 12;
+
         } else {
             listener.enabled = false;
             virtualCamera.Priority = 0;
