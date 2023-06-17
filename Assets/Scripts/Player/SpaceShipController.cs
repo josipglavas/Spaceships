@@ -5,6 +5,12 @@ using UnityEngine;
 using System;
 public class SpaceShipController : NetworkBehaviour {
 
+    /// <summary>
+    /// ONLY FOR PLAYTESTING
+    [SerializeField]
+    private bool Kill;
+    /// </summary>
+
     public event EventHandler<int> OnHealthChanged;
 
     [HideInInspector]
@@ -17,6 +23,11 @@ public class SpaceShipController : NetworkBehaviour {
     [HideInInspector]
     public GameManager gameplayManager;
 
+    private void Update() {
+        if (Kill) {
+            Hit(10000);
+        }
+    }
 
     public void Hit(int damage) {
         //if (!IsServer || isPlayerDefeated)
@@ -35,9 +46,25 @@ public class SpaceShipController : NetworkBehaviour {
 
             // Tell the Gameplay manager that I've been defeated
             //gameplayManager.PlayerDeath(m_characterData.clientId);
-            Debug.Log("Player killed");
+            EmitParticleServerRpc();
             NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
+
+
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void EmitParticleServerRpc() {
+        //ParticleSystem deathParticle = GameObject.FindGameObjectWithTag("ExplosionParticle").GetComponent<ParticleSystem>();
+        EmitParicleClientRpc();
+    }
+
+    [ClientRpc]
+    private void EmitParicleClientRpc() {
+        ParticleSystem deathParticle = GameObject.FindGameObjectWithTag("ExplosionParticle").GetComponent<ParticleSystem>();
+        deathParticle.transform.position = transform.position;
+
+        deathParticle.Emit(1);
     }
 
     public void SetHealth(int health) {

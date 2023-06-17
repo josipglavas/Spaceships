@@ -56,7 +56,7 @@ public class Weapon : NetworkBehaviour {
         foreach (Transform spawnPoint in bulletSpawnPoints) {
             Vector3 aimDir = (screenCenter - spawnPoint.forward).normalized;
 
-            GameObject bullet = NetworkObjectSpawner.SpawnNewNetworkObject(bulletPrefab, spawnPoint.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            GameObject bullet = NetworkObjectSpawner.SpawnNewNetworkObject(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
             PrepareNewlySpawnedBulltet(bullet);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.velocity = rayDirection * bulletVelocity;
