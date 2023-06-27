@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6380118035582603944}
   - component: {fileID: 6412250686484394022}
   - component: {fileID: 6400112711613164804}
-  - component: {fileID: 5539894752130517818}
   m_Layer: 0
   m_Name: SM_Wep_Missile_01
   m_TagString: Untagged
@@ -84,29 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5539894752130517818
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6377638410193459876}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.35
-  m_Height: 2
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7871602446594914479
 GameObject:
   m_ObjectHideFlags: 0
@@ -9777,6 +9753,7 @@ GameObject:
   - component: {fileID: 5456361619312434718}
   - component: {fileID: 1699614772668839297}
   - component: {fileID: 8594317503731812196}
+  - component: {fileID: 5574102860463240009}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -9905,6 +9882,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &5574102860463240009
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8312230809419201541}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.25
+  m_Height: 4
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 1.3}
 --- !u!1 &8312230810217489161
 GameObject:
   m_ObjectHideFlags: 0

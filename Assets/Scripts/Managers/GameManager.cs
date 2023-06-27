@@ -11,9 +11,6 @@ public class GameManager : SingletonNetwork<GameManager> {
     private CharacterDataSO[] m_charactersData;
 
     [SerializeField]
-    private UIPlayerGameplay playerUI;
-
-    [SerializeField]
     private GameObject m_deathUI;
 
     [SerializeField]
@@ -100,6 +97,7 @@ public class GameManager : SingletonNetwork<GameManager> {
 
         //// Pass the UI to the player
         //playerShipController.playerUI = playerUI[m_charactersData[charIndex].playerId];
+        //if (!IsOwner) return;
 
         if (playerReference.TryGet(out NetworkBehaviour player)) {
             SpaceShipController playerShipController =
@@ -112,7 +110,7 @@ public class GameManager : SingletonNetwork<GameManager> {
             playerShip.SetBoost(boost);
 
 
-            playerUI.SetPlayerUI(player.gameObject);
+            player.GetComponentInChildren<UIPlayerGameplay>().SetPlayerUI(player.gameObject);
         } else {
             return;
         }
@@ -173,6 +171,7 @@ public class GameManager : SingletonNetwork<GameManager> {
         foreach (var client in m_connectedClients) {
             foreach (CharacterDataSO data in m_charactersData) {
                 if (data.isSelected && data.clientId == client) {
+                    //if (data.clientId == client) {
                     GameObject playerSpaceship =
                         NetworkObjectSpawner.SpawnNewNetworkObjectChangeOwnershipToClient(
                             data.spaceshipPrefab,
@@ -192,7 +191,7 @@ public class GameManager : SingletonNetwork<GameManager> {
 
                     m_playerShips.Add(playerShipController);
                     SetPlayerUIClientRpc(playerSpaceship.GetComponent<NetworkBehaviour>(), clientId, data.boostAmount, data.healthAmount);
-                    playerUI.SetPlayerUI(playerSpaceship);
+                    //playerSpaceship.GetComponentInChildren<UIPlayerGameplay>().SetPlayerUI(playerSpaceship.gameObject);
 
                     //
                     m_numberOfPlayerConnected++;

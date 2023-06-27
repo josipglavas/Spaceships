@@ -16,6 +16,9 @@ public class Weapon : NetworkBehaviour {
     [SerializeField] private float weaponShootCooldown = 1f;
     [SerializeField] private int fireDamage = 10;
 
+    [SerializeField] private LayerMask playerLayerMask;
+    [SerializeField] private Transform rayOrigin;
+
     private bool canShoot = true;
 
     private Vector3 screenCenter;
@@ -54,12 +57,20 @@ public class Weapon : NetworkBehaviour {
 
     private void Shoot(Vector3 rayDirection) {
         foreach (Transform spawnPoint in bulletSpawnPoints) {
-            Vector3 aimDir = (screenCenter - spawnPoint.forward).normalized;
+            //Vector3 aimDir = (screenCenter - spawnPoint.forward).normalized;
 
             GameObject bullet = NetworkObjectSpawner.SpawnNewNetworkObject(bulletPrefab, spawnPoint.position, spawnPoint.rotation);
             PrepareNewlySpawnedBulltet(bullet);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.velocity = rayDirection * bulletVelocity;
+        }
+
+        if (Physics.Raycast(rayOrigin.position, rayDirection, out RaycastHit hit, 1000f, playerLayerMask)) {
+            Debug.Log("hit a player");
+            if (hit.transform.TryGetComponent(out SpaceShipController spaceShipController)) {
+                spaceShipController.Hit(fireDamage);
+                //NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
+            }
         }
     }
 

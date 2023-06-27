@@ -26,7 +26,7 @@ public class Bullet : NetworkBehaviour {
         if (!IsServer) return;
 
         if (other.TryGetComponent(out SpaceShipController spaceShipController)) {
-            spaceShipController.Hit(damage);
+            //spaceShipController.Hit(damage);
             NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
         }
 
@@ -49,6 +49,34 @@ public class Bullet : NetworkBehaviour {
 
         //}
     }
+
+    //private void Update() {
+    //    if (!IsServer) return;
+
+    //    Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f, layerMask);
+    //    for (int i = 0; i > hitColliders.Length; i++) {
+    //        Debug.Log("Hit something");
+    //        if (hitColliders[i].TryGetComponent(out SpaceShipController spaceShipController)) {
+    //            spaceShipController.Hit(damage);
+    //            NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
+    //        }
+    //    }
+
+    //    //int maxColliders = 10; // we wont have more than 10 players
+    //    //Collider[] hitColliders = new Collider[maxColliders];
+    //    //int colliders = Physics.OverlapSphereNonAlloc(transform.position, 2f, hitColliders, layerMask);
+    //    //for (int i = 0; i > colliders; i++) {
+    //    //    Debug.Log("Hit something");
+    //    //    if (hitColliders[i].TryGetComponent(out SpaceShipController spaceShipController)) {
+    //    //        spaceShipController.Hit(damage);
+    //    //        NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
+    //    //    }
+    //    //}
+
+    //}
+    //private void OnDrawGizmos() {
+    //    Gizmos.DrawSphere(transform.position, 2f);
+    //}
 
     private IEnumerator DespawnDelay() {
         yield return new WaitForSeconds(bulletMaxLifeTime);

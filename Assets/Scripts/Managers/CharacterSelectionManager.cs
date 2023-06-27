@@ -4,6 +4,10 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// TODO: Remove ready button and add a simple 10 seconds timer that checks the selected characters.
+/// </summary>
+
 /*
 * Singleton to control the changes on the char sprites and the flow of the scene
 */
@@ -180,7 +184,7 @@ public class CharacterSelectionManager : SingletonNetwork<CharacterSelectionMana
         return charactersData[playerId].isSelected;
     }
 
-    public void SetCharacterColor(int playerId, int characterSelected) {
+    private void SetCharacterColor(int playerId, int characterSelected) {
         if (charactersData[characterSelected].isSelected) {
             m_charactersContainers[playerId].imageContainer.color = k_selectedColor;
             m_charactersContainers[playerId].nameContainer.color = k_selectedColor;

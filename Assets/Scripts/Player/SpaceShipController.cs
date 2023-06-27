@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using System;
+using System.Linq;
+
 public class SpaceShipController : NetworkBehaviour {
 
     /// <summary>
@@ -16,12 +18,12 @@ public class SpaceShipController : NetworkBehaviour {
     [HideInInspector]
     public CharacterDataSO characterData;
 
+    [HideInInspector]
+    public GameManager gameplayManager;
+
     public NetworkVariable<int> health = new NetworkVariable<int>();
 
     private bool isPlayerDefeated = false;
-
-    [HideInInspector]
-    public GameManager gameplayManager;
 
     private void Update() {
         if (Kill) {
@@ -33,9 +35,9 @@ public class SpaceShipController : NetworkBehaviour {
         //if (!IsServer || isPlayerDefeated)
         if (isPlayerDefeated)
             return;
-        Debug.Log("Taken damage amount: " + damage);
+        Debug.Log("Taken damage amount: " + damage + ".");
         health.Value -= damage;
-        OnHealthChanged?.Invoke(this, health.Value);
+        UpdateUIClientRpc();
         //HitClientRpc();
 
         if (health.Value > 0) {
@@ -52,10 +54,14 @@ public class SpaceShipController : NetworkBehaviour {
 
         }
     }
+    [ClientRpc]
+    private void UpdateUIClientRpc() {
+        OnHealthChanged?.Invoke(this, health.Value);
+    }
 
     [ServerRpc(RequireOwnership = false)]
     private void EmitParticleServerRpc() {
-        //ParticleSystem deathParticle = GameObject.FindGameObjectWithTag("ExplosionParticle").GetComponent<ParticleSystem>();
+        ParticleSystem deathParticle = GameObject.FindGameObjectWithTag("ExplosionParticle").GetComponent<ParticleSystem>();
         EmitParicleClientRpc();
     }
 

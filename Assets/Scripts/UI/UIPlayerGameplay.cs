@@ -18,10 +18,10 @@ public class UIPlayerGameplay : NetworkBehaviour {
     [SerializeField] private Image shipImage;
 
     private float maxBoostAmount = 1;
-    private int maxHealthAmount = 1;
+    private float maxHealthAmount = 1;
 
     private float currentBoostAmount = 1;
-    private int currentHealthAmount = 1;
+    private float currentHealthAmount = 1;
 
     private void Spaceship_OnHealthChanged(object sender, int healthAmount) {
         currentHealthAmount = healthAmount;
@@ -32,6 +32,7 @@ public class UIPlayerGameplay : NetworkBehaviour {
     }
 
     private void Update() {
+        if (!IsOwner) return;
         UpdateBoost();
         UpdateHealth();
 
@@ -46,10 +47,14 @@ public class UIPlayerGameplay : NetworkBehaviour {
     private void UpdateHealth() {
 
         healthBar.fillAmount = (int)currentHealthAmount / maxHealthAmount;
-        healthText.text = $"{currentHealthAmount} / {maxHealthAmount}";
+        healthText.text = $"{(int)currentHealthAmount} / {(int)maxHealthAmount}";
     }
 
     public void SetPlayerUI(GameObject playerSpaceship) {
+        if (!IsOwner) {
+            gameObject.SetActive(false);
+            return;
+        }
         player = playerSpaceship;
         //shipImage.sprite = characterDataSO.characterShipSprite;
         float boost = playerSpaceship.GetComponent<Spaceship>().GetBoost();
