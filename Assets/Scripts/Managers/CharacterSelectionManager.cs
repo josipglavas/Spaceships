@@ -53,6 +53,9 @@ public class CharacterSelectionManager : SingletonNetwork<CharacterSelectionMana
     CharacterContainer[] m_charactersContainers;
 
     [SerializeField]
+    TextMeshProUGUI gameStartTimerText;
+
+    [SerializeField]
     GameObject m_readyButton;
 
     [SerializeField]
@@ -90,6 +93,7 @@ public class CharacterSelectionManager : SingletonNetwork<CharacterSelectionMana
 
     void Start() {
         m_timer = m_timeToStartGame;
+        StartGameTimer();
     }
 
     void Update() {
@@ -100,6 +104,7 @@ public class CharacterSelectionManager : SingletonNetwork<CharacterSelectionMana
             return;
 
         m_timer -= Time.deltaTime;
+        gameStartTimerText.text = m_timer.ToString("0");
         if (m_timer <= 0f) {
             m_isTimerOn = false;
             StartGame();
