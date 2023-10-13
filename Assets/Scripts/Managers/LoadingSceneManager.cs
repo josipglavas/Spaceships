@@ -11,8 +11,6 @@ public enum SceneName : byte {
     CharacterSelection,
     Controls,
     Gameplay,
-    Victory,
-    Defeat,
     //.
     //.
     // Add more scenes states if needed
@@ -101,12 +99,6 @@ public class LoadingSceneManager : SingletonPersistent<LoadingSceneManager> {
                 GameManager.Instance.ServerSceneInit(clientId);
                 break;
 
-            // When a client/host connects tell the manager to create the player score ships and
-            // play the right SFX
-            case SceneName.Victory:
-            case SceneName.Defeat:
-                // EndGameManager.Instance.ServerSceneInit(clientId);
-                break;
         }
     }
 }
