@@ -1219,7 +1219,7 @@ GameObject:
   - component: {fileID: 1161356486}
   - component: {fileID: 1161356485}
   m_Layer: 5
-  m_Name: WinText
+  m_Name: DeathText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1776,7 +1776,7 @@ GameObject:
   - component: {fileID: 1873570149}
   - component: {fileID: 1873570148}
   m_Layer: 5
-  m_Name: VictoryCanvas
+  m_Name: DeathCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

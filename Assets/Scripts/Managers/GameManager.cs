@@ -42,8 +42,25 @@ public class GameManager : SingletonNetwork<GameManager> {
     }
 
     public void PlayerDeath(ulong clientId) {
+        m_numberOfPlayerConnected--;
         // Send a client rpc to check which client was defeated, and activate their death UI
         ActivateDeathUIClientRpc(clientId);
+
+        if (m_numberOfPlayerConnected == 1) {
+            StartCoroutine(RestartGame());
+        }
+    }
+    IEnumerator RestartGame() {
+        yield return new WaitForSeconds(7);   //Wait 7 seconds
+        ShutDownNetworkManagerServerRpc();
+        NetworkManager.Singleton.Shutdown();
+        LoadClientRpc();
+        LoadingSceneManager.Instance.LoadScene(SceneName.Bootstrap, false);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ShutDownNetworkManagerServerRpc() {
+        Destroy(NetworkManager.Singleton.gameObject);
 
     }
 
@@ -59,7 +76,7 @@ public class GameManager : SingletonNetwork<GameManager> {
         foreach (var player in m_playerShips) {
             if (player != null) {
                 if (player.characterData.clientId == clientId) {
-                    player.Hit(999); // Do critical damage
+                    player.Hit(99999); // Do critical damage
                 }
             }
         }
@@ -69,7 +86,7 @@ public class GameManager : SingletonNetwork<GameManager> {
     private void LoadClientRpc() {
         if (IsServer)
             return;
-
+        LoadingSceneManager.Instance.LoadScene(SceneName.Bootstrap, false);
         LoadingFadeEffect.Instance.FadeAll();
     }
 
