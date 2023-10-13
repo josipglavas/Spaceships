@@ -47,7 +47,7 @@ public class SpaceShipController : NetworkBehaviour {
             isPlayerDefeated = true;
 
             // Tell the Gameplay manager that I've been defeated
-            //gameplayManager.PlayerDeath(m_characterData.clientId);
+            gameplayManager.PlayerDeath(characterData.clientId);
             EmitParticleServerRpc();
             NetworkObjectDespawner.DespawnNetworkObject(NetworkObject);
 

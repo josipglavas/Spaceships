@@ -42,14 +42,15 @@ public class GameManager : SingletonNetwork<GameManager> {
     }
 
     public void PlayerDeath(ulong clientId) {
-        m_numberOfPlayerConnected--;
+        // Send a client rpc to check which client was defeated, and activate their death UI
+        ActivateDeathUIClientRpc(clientId);
 
-        if (m_numberOfPlayerConnected <= 0) {
-            LoadClientRpc();
-            LoadingSceneManager.Instance.LoadScene(SceneName.Defeat);
-        } else {
-            // Send a client rpc to check which client was defeated, and activate their death UI
-            ActivateDeathUIClientRpc(clientId);
+    }
+
+    [ClientRpc]
+    private void ActivateDeathUIClientRpc(ulong clientId) {
+        if (clientId == NetworkManager.Singleton.LocalClientId) {
+            m_deathUI.SetActive(true);
         }
     }
 
@@ -65,13 +66,6 @@ public class GameManager : SingletonNetwork<GameManager> {
     }
 
     [ClientRpc]
-    private void ActivateDeathUIClientRpc(ulong clientId) {
-        if (clientId == NetworkManager.Singleton.LocalClientId) {
-            m_deathUI.SetActive(true);
-        }
-    }
-
-    [ClientRpc]
     private void LoadClientRpc() {
         if (IsServer)
             return;
@@ -81,29 +75,10 @@ public class GameManager : SingletonNetwork<GameManager> {
 
     [ClientRpc]
     private void SetPlayerUIClientRpc(NetworkBehaviourReference playerReference, ulong clientId, float boost, int health) {
-        // Not optimal, but this is only called one time per ship
-        // We do this because we can not pass a GameObject in an RPC
-        //GameObject playerSpaceship = GameObject.Find(playerShipName);
-
-        //SpaceShipController playerShipController =
-        //    playerSpaceship.GetComponent<SpaceShipController>();
-
-        //playerUI[m_charactersData[charIndex].playerId].SetUI(
-        //    m_charactersData[charIndex].playerId,
-        //    m_charactersData[charIndex].iconSprite,
-        //    m_charactersData[charIndex].iconDeathSprite,
-        //    playerShipController.health.Value,
-        //    m_charactersData[charIndex].darkColor);
-
-        //// Pass the UI to the player
-        //playerShipController.playerUI = playerUI[m_charactersData[charIndex].playerId];
-        //if (!IsOwner) return;
 
         if (playerReference.TryGet(out NetworkBehaviour player)) {
             SpaceShipController playerShipController =
                        player.GetComponent<SpaceShipController>();
-            //playerShipController.gameplayManager = this;
-            //      playerShipController.SetHealth(health);
 
             Spaceship playerShip =
                 player.GetComponent<Spaceship>();
@@ -138,11 +113,6 @@ public class GameManager : SingletonNetwork<GameManager> {
             return;
 
         Shutdown();
-    }
-
-    public void BossDefeat() {
-        LoadClientRpc();
-        LoadingSceneManager.Instance.LoadScene(SceneName.Victory);
     }
 
     public void ExitToMenu() {
@@ -191,9 +161,7 @@ public class GameManager : SingletonNetwork<GameManager> {
 
                     m_playerShips.Add(playerShipController);
                     SetPlayerUIClientRpc(playerSpaceship.GetComponent<NetworkBehaviour>(), clientId, data.boostAmount, data.healthAmount);
-                    //playerSpaceship.GetComponentInChildren<UIPlayerGameplay>().SetPlayerUI(playerSpaceship.gameObject);
 
-                    //
                     m_numberOfPlayerConnected++;
                 }
             }
