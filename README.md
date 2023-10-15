@@ -7,7 +7,7 @@ This project is an ongoing work-in-progress that showcases the dynamic potential
 
 Key Features:
 
-  Multiplayer Support: I've integrated the Netcode for GameObjects library, making the game multiplayer, allowing players to collaborate or compete in real-time.
+  Multiplayer Support: I've integrated the Netcode for GameObjects library, making the game multiplayer, allowing players to compete in real-time.
 
   Input Variety: The system seamlessly supports mouse and keyboard input, as well as controller support, providing players with the flexibility to choose their preferred gaming input method.
 
@@ -19,4 +19,4 @@ Challenges:
 
   WebGL Limitations: Unfortunately, this project cannot be hosted online due to limitations imposed by WebGL. However, it remains accessible for local play and testing.
 
-My Interactive Game System is a labor of passion and creativity, continually evolving as it nears completion. It offers a rich blend of programming concepts and a multiplayer experience that aims to captivate players in a dynamic virtual world.
+My Interactive Spaceships game is made with passion, continually evolving as it nears completion. It offers a rich blend of programming concepts and a multiplayer experience that aims to captivate players in a dynamic virtual world.
